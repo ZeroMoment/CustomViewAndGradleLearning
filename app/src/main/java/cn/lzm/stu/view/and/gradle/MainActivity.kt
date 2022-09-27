@@ -9,6 +9,7 @@ import cn.lzm.stu.view.and.gradle.adapter.MainAdapter
 import cn.lzm.stu.view.and.gradle.interf.ICommonRecyclerItemClickListener
 import cn.lzm.stu.view.and.gradle.page.CustomTitleViewActivity
 import cn.lzm.stu.view.and.gradle.page.FourCornerActivity
+import cn.lzm.stu.view.and.gradle.page.ImageWithDescActivity
 import cn.lzm.stu.view.and.gradle.utils.CommonUtil
 
 class MainActivity : BaseActivity() {
@@ -27,7 +28,11 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initData() {
-        val mainItemList = listOf("四角定点显示View", "简单文本View", "待定")
+        val mainItemList = listOf(
+            "四角定点显示View",
+            "简单文本-随机数字View",
+            "图片带文字介绍",
+            "待定")
         mAdapter.setNewData(mainItemList, object : ICommonRecyclerItemClickListener {
             override fun onItemClick(itemData: Any, position: Int) {
                 clickEvent(position)
@@ -40,6 +45,7 @@ class MainActivity : BaseActivity() {
         when (position) {
             0 -> startActivity(Intent(this, FourCornerActivity::class.java))
             1 -> startActivity(Intent(this, CustomTitleViewActivity::class.java))
+            2 -> startActivity(Intent(this, ImageWithDescActivity::class.java))
             else -> {
                 CommonUtil.showToast(this, "待定")
             }
