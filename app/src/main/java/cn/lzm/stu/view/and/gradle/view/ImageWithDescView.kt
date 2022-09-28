@@ -8,7 +8,6 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import cn.lzm.stu.view.and.gradle.R
-import cn.lzm.stu.view.and.gradle.utils.CommonUtil
 import kotlin.math.max
 import kotlin.math.min
 
@@ -151,7 +150,6 @@ class ImageWithDescView : View {
 
         mPaint.color = Color.BLACK
         mImage?.let {
-            CommonUtil.printMsg("mImageScale:$mImageScale")
             if(mImageScale == 0) {//fitxy
                 canvas?.drawBitmap(it, null, mRect, mPaint)
             } else { //默认居中
