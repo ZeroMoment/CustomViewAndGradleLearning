@@ -33,7 +33,7 @@
         android:layout_margin="10dp"
         android:padding="10dp"
         app:image="@drawable/meizi_sw"
-        app:imageScaleType="center"
+        app:imageScaleType="fillXY"
         app:titleText="妹子~"
         app:titleTextColor="#ff0000"
         app:titleTextSize="12sp" />

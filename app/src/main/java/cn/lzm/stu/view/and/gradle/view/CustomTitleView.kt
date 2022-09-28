@@ -30,9 +30,9 @@ class CustomTitleView : View {
     private var mTitleTextSize : Int = 16
 
     //绘制范围
-    private lateinit var mBound: Rect
+    private var mBound: Rect
 
-    private lateinit var mPaint : Paint
+    private var mPaint : Paint
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
