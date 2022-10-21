@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--简单文本图片view使用-->
     <attr name="titleText" format="string" />
     <attr name="titleTextColor" format="color" />
     <attr name="titleTextSize" format="dimension" />
@@ -10,6 +11,13 @@
         <enum name="fillXY" value="0" />
         <enum name="center" value="1" />
     </attr>
+
+    <!--圆环进度交替view使用-->
+    <attr name="firstColor" format="color" />
+    <attr name="secondColor" format="color" />
+    <attr name="circleWidth" format="dimension" />
+    <attr name="speed" format="integer" />
+
 
     <declare-styleable name="CustomTitleView">
         <attr name="titleText" />
@@ -23,6 +31,15 @@
         <attr name="titleTextSize" />
         <attr name="image" />
         <attr name="imageScaleType" />
+    </declare-styleable>
+
+
+
+    <declare-styleable name="CustomProgressBar">
+        <attr name="firstColor" />
+        <attr name="secondColor" />
+        <attr name="circleWidth" />
+        <attr name="speed" />
     </declare-styleable>
 
 </resources>

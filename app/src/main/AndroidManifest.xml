@@ -30,6 +30,10 @@
         <activity android:name=".page.ImageWithDescActivity" android:launchMode="singleTop"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+
+        <activity android:name=".page.CircleProgressActivity" android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>
