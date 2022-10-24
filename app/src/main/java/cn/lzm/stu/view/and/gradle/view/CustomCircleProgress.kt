@@ -19,13 +19,13 @@ import cn.lzm.stu.view.and.gradle.R
 class CustomCircleProgress : View {
 
     //第一圈的颜色
-    private var mFirstColor : Int = 0
+    private var mFirstColor : Int = Color.BLUE
 
     //第二圈的颜色
-    private var mSecondColor: Int = 0
+    private var mSecondColor: Int = Color.CYAN
 
     //圈的宽度
-    private var mCircleWidth: Int = 0
+    private var mCircleWidth: Int = 30
 
     //画笔
     private var mPaint: Paint
@@ -82,7 +82,9 @@ class CustomCircleProgress : View {
         }.start()
     }
 
-    @SuppressLint("DrawAllocation")
+    //用于定义圆弧的形状和大小的界限
+    private var mOvalRect: RectF? = null
+
     override fun onDraw(canvas: Canvas?) {
 
         val center = width / 2 //获取圆心的x坐标
@@ -92,19 +94,20 @@ class CustomCircleProgress : View {
         mPaint.isAntiAlias = true //消除锯齿
         mPaint.style = Paint.Style.STROKE //设置空心
 
-        val oval = RectF((center-radius).toFloat(), (center-radius).toFloat(),
-            (center+radius).toFloat(), (center+radius).toFloat()) //用于定义圆弧的形状和大小的界限
+        if(mOvalRect == null)
+            mOvalRect = RectF((center-radius).toFloat(), (center-radius).toFloat(),
+                (center+radius).toFloat(), (center+radius).toFloat())
 
         if(isNext) {
             mPaint.color = mSecondColor //设置圆环颜色
             canvas?.drawCircle(center.toFloat(), center.toFloat(), radius.toFloat(), mPaint) //画出圆环
             mPaint.color = mFirstColor //设置圆环进度颜色
-            canvas?.drawArc(oval, -90F, mProgress.toFloat(), false, mPaint) //画出进度圆弧
+            canvas?.drawArc(mOvalRect!!, -90F, mProgress.toFloat(), false, mPaint) //画出进度圆弧
         } else { //首次，从第一颜色设置开始
             mPaint.color = mFirstColor //设置圆环颜色
             canvas?.drawCircle(center.toFloat(), center.toFloat(), radius.toFloat(), mPaint) //画出圆环
             mPaint.color = mSecondColor //设置圆环进度颜色
-            canvas?.drawArc(oval, -90F, mProgress.toFloat(), false, mPaint) //画出进度圆弧
+            canvas?.drawArc(mOvalRect!!, -90F, mProgress.toFloat(), false, mPaint) //画出进度圆弧
         }
 
 

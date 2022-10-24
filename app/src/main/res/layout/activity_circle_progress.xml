@@ -11,7 +11,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:speed="500"
+        app:speed="20"
         android:layout_margin="10dp" />
 
 
