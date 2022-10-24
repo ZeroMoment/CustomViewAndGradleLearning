@@ -1,6 +1,6 @@
 package cn.lzm.stu.view.and.gradle.page
 
-import cn.lzm.stu.view.and.gradle.BaseActivity
+import cn.lzm.stu.view.and.gradle.CleanBaseActivity
 import cn.lzm.stu.view.and.gradle.R
 
 /**
@@ -8,14 +8,8 @@ import cn.lzm.stu.view.and.gradle.R
  * @author: lizhiming
  * @date: 2022/9/23 16:18
  */
-class CustomTitleViewActivity : BaseActivity() {
-    override fun getLayoutResource(): Int {
+class CustomTitleViewActivity : CleanBaseActivity() {
+    override fun getLayoutId(): Int {
         return R.layout.activity_simple_textview
-    }
-
-    override fun initView() {
-    }
-
-    override fun initData() {
     }
 }

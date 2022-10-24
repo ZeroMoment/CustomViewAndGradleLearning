@@ -1,6 +1,6 @@
 package cn.lzm.stu.view.and.gradle.page
 
-import cn.lzm.stu.view.and.gradle.BaseActivity
+import cn.lzm.stu.view.and.gradle.CleanBaseActivity
 import cn.lzm.stu.view.and.gradle.R
 
 /**
@@ -8,14 +8,8 @@ import cn.lzm.stu.view.and.gradle.R
  * @author: lizhiming
  * @date: 2022/9/22 18:07
  */
-class FourCornerActivity : BaseActivity() {
-    override fun getLayoutResource(): Int {
+class FourCornerActivity : CleanBaseActivity() {
+    override fun getLayoutId(): Int {
         return R.layout.activity_four_corner
-    }
-
-    override fun initView() {
-    }
-
-    override fun initData() {
     }
 }

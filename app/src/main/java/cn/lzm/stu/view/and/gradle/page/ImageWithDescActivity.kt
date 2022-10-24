@@ -1,6 +1,6 @@
 package cn.lzm.stu.view.and.gradle.page
 
-import cn.lzm.stu.view.and.gradle.BaseActivity
+import cn.lzm.stu.view.and.gradle.CleanBaseActivity
 import cn.lzm.stu.view.and.gradle.R
 
 /**
@@ -8,14 +8,8 @@ import cn.lzm.stu.view.and.gradle.R
  * @author: lizhiming
  * @date: 2022/9/26 16:28
  */
-class ImageWithDescActivity : BaseActivity() {
-    override fun getLayoutResource(): Int {
+class ImageWithDescActivity : CleanBaseActivity() {
+    override fun getLayoutId(): Int {
         return R.layout.activity_image_with_desc
-    }
-
-    override fun initView() {
-    }
-
-    override fun initData() {
     }
 }

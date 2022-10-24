@@ -18,6 +18,10 @@
     <attr name="circleWidth" format="dimension" />
     <attr name="speed" format="integer" />
 
+    <!--音频音量间隙控件-->
+    <attr name="dotCount" format="integer" />
+    <attr name="splitSize" format="integer" />
+    <attr name="bg" format="reference" />
 
     <declare-styleable name="CustomTitleView">
         <attr name="titleText" />
@@ -40,6 +44,15 @@
         <attr name="secondColor" />
         <attr name="circleWidth" />
         <attr name="speed" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomVolumeControlBar">
+        <attr name="firstColor" />
+        <attr name="secondColor" />
+        <attr name="circleWidth" />
+        <attr name="dotCount" />
+        <attr name="splitSize" />
+        <attr name="bg" />
     </declare-styleable>
 
 </resources>

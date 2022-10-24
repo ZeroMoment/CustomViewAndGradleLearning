@@ -7,10 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.lzm.stu.view.and.gradle.adapter.MainAdapter
 import cn.lzm.stu.view.and.gradle.interf.ICommonRecyclerItemClickListener
-import cn.lzm.stu.view.and.gradle.page.CircleProgressActivity
-import cn.lzm.stu.view.and.gradle.page.CustomTitleViewActivity
-import cn.lzm.stu.view.and.gradle.page.FourCornerActivity
-import cn.lzm.stu.view.and.gradle.page.ImageWithDescActivity
+import cn.lzm.stu.view.and.gradle.page.*
 import cn.lzm.stu.view.and.gradle.utils.CommonUtil
 
 class MainActivity : BaseActivity() {
@@ -34,6 +31,7 @@ class MainActivity : BaseActivity() {
             "简单文本-随机数字View",
             "图片带文字介绍",
             "交替圆环进度",
+            "音量调节",
             "待定")
         mAdapter.setNewData(mainItemList, object : ICommonRecyclerItemClickListener {
             override fun onItemClick(itemData: Any, position: Int) {
@@ -49,6 +47,7 @@ class MainActivity : BaseActivity() {
             1 -> startActivity(Intent(this, CustomTitleViewActivity::class.java))
             2 -> startActivity(Intent(this, ImageWithDescActivity::class.java))
             3 -> startActivity(Intent(this, CircleProgressActivity::class.java))
+            4 -> startActivity(Intent(this, CustomVolumeCtrlBarActivity::class.java))
             else -> {
                 CommonUtil.showToast(this, "待定")
             }
