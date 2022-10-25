@@ -21,7 +21,6 @@
     <!--音频音量间隙控件-->
     <attr name="dotCount" format="integer" />
     <attr name="splitSize" format="integer" />
-    <attr name="bg" format="reference" />
 
     <declare-styleable name="CustomTitleView">
         <attr name="titleText" />
@@ -52,7 +51,7 @@
         <attr name="circleWidth" />
         <attr name="dotCount" />
         <attr name="splitSize" />
-        <attr name="bg" />
+        <attr name="image" />
     </declare-styleable>
 
 </resources>
