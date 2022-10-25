@@ -93,6 +93,7 @@ class CustomVolumeCtrlBar : View {
             mRect.right = (mRect.left + sqrt(2.0) *relRadius).toInt()
 
             mImage?.let { img -> {
+                mPaint.color = Color.BLACK
                 /**
                  * 如果图片比较小，放正中心
                  */
