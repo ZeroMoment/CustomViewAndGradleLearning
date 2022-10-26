@@ -7,6 +7,7 @@ import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import cn.lzm.stu.view.and.gradle.R
+import cn.lzm.stu.view.and.gradle.utils.CommonUtil
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
@@ -18,26 +19,30 @@ import kotlin.math.sqrt
 class CustomVolumeCtrlBar : View {
 
     //第一圈颜色
-    private var mFirstColor: Int = Color.GREEN
+    private var mFirstColor: Int = Color.BLACK
+
     //第二圈颜色
     private var mSecondColor: Int = Color.CYAN
+
     //圈的宽度
-    private var mCircleWidth : Int = 20
+    private var mCircleWidth: Int = 20
 
     //画笔
     private var mPaint: Paint
 
     //当前进度
     private var mCurrentCount = 3
+
     //中间的图片
-    private var mImage :Bitmap? = null
+    private var mImage: Bitmap? = null
+
     //块块间隙
     private var mSplitSize = 10
 
-    //块块个数(应该是间隙的个数:12个间隙，就是13个进度块块)
+    //块块个数
     private var mCount = 12
 
-    private var mRect:Rect
+    private var mRect: Rect
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -46,21 +51,36 @@ class CustomVolumeCtrlBar : View {
         attrs,
         defStyleAttr
     ) {
-        val typeArr = context!!.theme.obtainStyledAttributes(attrs, R.styleable.CustomVolumeControlBar, defStyleAttr, 0)
+        val typeArr = context!!.theme.obtainStyledAttributes(
+            attrs,
+            R.styleable.CustomVolumeControlBar,
+            defStyleAttr,
+            0
+        )
         val arrCount = typeArr.indexCount
 
-        for(index in 0 until arrCount) {
-            when(val attrIndex = typeArr.getIndex(index)) {
-                R.styleable.CustomVolumeControlBar_firstColor -> mFirstColor = typeArr.getColor(attrIndex, Color.GREEN)
-                R.styleable.CustomVolumeControlBar_secondColor -> mSecondColor = typeArr.getColor(attrIndex, Color.CYAN)
-                R.styleable.CustomVolumeControlBar_image -> mImage = BitmapFactory.decodeResource(resources, typeArr.getResourceId(attrIndex, 0))
-                R.styleable.CustomVolumeControlBar_circleWidth -> mCircleWidth = typeArr.getDimensionPixelSize(attrIndex, TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_PX, 20F, resources.displayMetrics).toInt())
-                R.styleable.CustomVolumeControlBar_dotCount -> mCount = typeArr.getInt(attrIndex, 20)
-                R.styleable.CustomVolumeControlBar_splitSize -> mSplitSize = typeArr.getInt(attrIndex, 20)
+        for (index in 0 until arrCount) {
+            when (val attrIndex = typeArr.getIndex(index)) {
+                R.styleable.CustomVolumeControlBar_firstColor -> mFirstColor =
+                    typeArr.getColor(attrIndex, Color.GREEN)
+                R.styleable.CustomVolumeControlBar_secondColor -> mSecondColor =
+                    typeArr.getColor(attrIndex, Color.CYAN)
+                R.styleable.CustomVolumeControlBar_image -> mImage =
+                    BitmapFactory.decodeResource(resources, typeArr.getResourceId(attrIndex, 0))
+                R.styleable.CustomVolumeControlBar_circleWidth -> mCircleWidth =
+                    typeArr.getDimensionPixelSize(
+                        attrIndex, TypedValue.applyDimension(
+                            TypedValue.COMPLEX_UNIT_PX, 20F, resources.displayMetrics
+                        ).toInt()
+                    )
+                R.styleable.CustomVolumeControlBar_dotCount -> mCount =
+                    typeArr.getInt(attrIndex, 20)
+                R.styleable.CustomVolumeControlBar_splitSize -> mSplitSize =
+                    typeArr.getInt(attrIndex, 20)
             }
         }
         typeArr.recycle()
+
         mPaint = Paint()
         mPaint.isAntiAlias = true
         mPaint.strokeWidth = mCircleWidth.toFloat()
@@ -75,7 +95,7 @@ class CustomVolumeCtrlBar : View {
         canvas?.let {
 
             val center = width / 2 //圆心x坐标
-            val radius = center - mCircleWidth/2 //半径
+            val radius = center - mCircleWidth / 2 //半径
 
             //画块块
             drawOval(it, center, radius)
@@ -83,67 +103,77 @@ class CustomVolumeCtrlBar : View {
             /**
              * 计算内正方形的位置（限制中心图片显示的最大区域）
              */
-            val relRadius = radius - mCircleWidth/2 //内圆半径
+            val relRadius = radius - mCircleWidth / 2 //内圆半径
 
             //内切正方形距离顶部
-            mRect.left = ((relRadius - sqrt(2.0) *1.0f/2*relRadius) +mCircleWidth).toInt()
+            mRect.left = ((relRadius - sqrt(2.0) * 1.0f / 2 * relRadius) + mCircleWidth).toInt()
             //顶部
-            mRect.top = ((relRadius - sqrt(2.0) *1.0f/2*relRadius) +mCircleWidth).toInt()
-            mRect.bottom = (mRect.left + sqrt(2.0) *relRadius).toInt()
-            mRect.right = (mRect.left + sqrt(2.0) *relRadius).toInt()
+            mRect.top = ((relRadius - sqrt(2.0) * 1.0f / 2 * relRadius) + mCircleWidth).toInt()
+            mRect.bottom = (mRect.left + sqrt(2.0) * relRadius).toInt()
+            mRect.right = (mRect.left + sqrt(2.0) * relRadius).toInt()
 
-            mImage?.let { img -> {
-                mPaint.color = Color.BLACK
-                /**
-                 * 如果图片比较小，放正中心
-                 */
-                if(img.width < sqrt(2.0)*relRadius) {
-                    mRect.left = (mRect.left + sqrt(2.0) *relRadius * 1.0f/2- img.width*1.0f/2).toInt()
-                    mRect.top = (mRect.top + sqrt(2.0) *relRadius * 1.0f/2- img.height*1.0f/2).toInt()
-                    mRect.bottom = mRect.left + img.width
-                    mRect.right = mRect.top + img.height
-                }
+            /**
+             * 如果图片比较小，放正中心
+             */
+            if (mImage!!.width < sqrt(2.0) * relRadius) {
+                CommonUtil.printMsg("小图片-中心绘制")
+                mRect.left =
+                    (mRect.left + sqrt(2.0) * relRadius * 1.0f / 2 - mImage!!.width * 1.0f / 2).toInt()
+                mRect.top =
+                    (mRect.top + sqrt(2.0) * relRadius * 1.0f / 2 - mImage!!.height * 1.0f / 2).toInt()
+                mRect.bottom = mRect.left + mImage!!.width
+                mRect.right = mRect.top + mImage!!.height
+            }
 
-                it.drawBitmap(img, null, mRect, mPaint)
-            }}
+            CommonUtil.printMsg("left:${mRect.left}--top:${mRect.top}--right:${mRect.right}--bottom:${mRect.bottom}")
+
+            it.drawBitmap(mImage!!, null, mRect, mPaint)
         }
 
     }
 
     private var mOval: RectF? = null
+
     /**
      * 根据参数画出每个小块
      */
-    private fun drawOval(canvas: Canvas, center:Int, radius:Int) {
+    private fun drawOval(canvas: Canvas, center: Int, radius: Int) {
 
         //根据需要画的个数以及间隙计算每个块块所占的比例*360
-        val itemSize = (360*1.0f-mCount*mSplitSize) / mCount
+        val itemSize = (360 * 1.0f - mCount * mSplitSize) / mCount
 
-        mOval = RectF((center - radius).toFloat(),
-            (center - radius).toFloat(), (center +radius).toFloat(), (center + radius).toFloat()
+        mOval = RectF(
+            (center - radius).toFloat(),
+            (center - radius).toFloat(), (center + radius).toFloat(), (center + radius).toFloat()
         )
         mPaint.color = mFirstColor //设置圆环的颜色
         for (index in 0 until mCount) {
-            canvas.drawArc(mOval!!, index*(itemSize+mSplitSize), itemSize, false, mPaint)
+            canvas.drawArc(mOval!!, index * (itemSize + mSplitSize), itemSize, false, mPaint)
         }
 
         mPaint.color = mSecondColor //进度圆环的颜色
         for (index in 0 until mCurrentCount) {
-            canvas.drawArc(mOval!!, index*(itemSize+mSplitSize), itemSize, false, mPaint) //根据进度画圆弧
+            canvas.drawArc(
+                mOval!!,
+                index * (itemSize + mSplitSize),
+                itemSize,
+                false,
+                mPaint
+            ) //根据进度画圆弧
         }
     }
 
     private var xDown = 0
     private var xUp = 0
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        if(event == null)
+        if (event == null)
             return super.onTouchEvent(event)
 
-        when(event.action) {
+        when (event.action) {
             MotionEvent.ACTION_DOWN -> xDown = event.y.toInt()
             MotionEvent.ACTION_UP -> {
                 xUp = event.y.toInt()
-                if(xUp > xDown) //下滑，音量减小效果
+                if (xUp > xDown) //下滑，音量减小效果
                     down()
                 else
                     up()
@@ -153,13 +183,17 @@ class CustomVolumeCtrlBar : View {
         return true
     }
 
-    private fun up(){
-        mCurrentCount++
-        postInvalidate()
+    private fun up() {
+        if(mCurrentCount < mCount) {
+            mCurrentCount++
+            postInvalidate()
+        }
     }
 
-    private fun down(){
-        mCurrentCount--
-        postInvalidate()
+    private fun down() {
+        if(mCurrentCount > 0) {
+            mCurrentCount--
+            postInvalidate()
+        }
     }
 }
